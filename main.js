@@ -1,7 +1,7 @@
 /*******************
  * OUR HELPER CODE *
 *******************/
-
+let isMouseDown = false;
 /*
  * Here we add the squares to the canvas dynamically.
  * You can mostly leave this section alone!
@@ -48,8 +48,13 @@ while (count <= gridWidth * gridWidth) {
 
 // Add queries for all your squares, palette colors, and brush here.
 // (Note the singular or plural used in that sentence!)
+let brush = document.querySelector(".current-brush");
 
+let paletteColors = document.querySelectorAll(".palette div");
 
+let canvasSquares = document.querySelectorAll(".canvas div");
+
+let app = document.querySelector(".app");
 
 /****************************
  * EVENT LISTENER FUNCTIONS *
@@ -60,6 +65,48 @@ while (count <= gridWidth * gridWidth) {
 // empty at first, though a console.log just to know they're being
 // run as event listeners (after the next step is set up) isn't a
 // bad idea for testing purposes.
+
+brush.addEventListener('click', function(){
+  console.log("brush");
+});
+
+for(let colors of paletteColors){
+  colors.addEventListener("click", function(){
+    console.log(colors.classList);
+    brush.classList.replace(brush.classList[1], colors.classList[1]);
+  })
+}
+
+for(let squares of canvasSquares){
+  squares.addEventListener("click", function(){
+    squares.classList.replace(squares.classList[1], brush.classList[1]);
+  })
+}
+
+for(let squares of canvasSquares){
+  squares.addEventListener("mouseover", function(){
+    if(isMouseDown === true){
+      squares.classList.replace(squares.classList[1], brush.classList[1]);
+    } 
+  })
+}
+
+app.addEventListener("mousedown", function(){
+  console.log('Mouse is down');
+  isMouseDown = true;
+  console.log('isMouseDown: '+ isMouseDown);
+})
+
+app.addEventListener("mouseup", function(){
+  console.log('Mouse is up');
+    isMouseDown = false;
+    console.log('isMouseUp[]: '+ isMouseDown);
+    
+  })
+
+
+
+
 
 
 
